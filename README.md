@@ -31,6 +31,12 @@ RFC7938に記載の図をJavaScriptで描画します。
 Figure 3: 5-Stage Clos Topology
 ```
 
+ライブデモ
+
+https://takamitsu-iida.github.io/network-diagram3/
+
+
+
 ## レイアウト方法
 
 cytoscape.jsの拡張機能としてレイアウトを実装します。
