@@ -37,27 +37,21 @@ Figure 3: 5-Stage Clos Topology
 
 <br><br>
 
-## レイアウト方法
-
-cytoscape.jsの拡張機能としてレイアウトを実装しています。
-
->
-> 参照
->
-> https://js.cytoscape.org/#extensions/layout-prototype
->
-
-レイアウトの実装で必要な関数は run() と stop() です。
-
-cytoscape.jsが初期化されると、指定したレイアウトのrun()が呼ばれます。
-
-run()の中でlayoutPositions()を呼ぶことでレイアウトを確定させます。
-
-レイアウトを決定するのに必要な情報は引数として渡されるオブジェクトに格納されています。
-
-<br><br>
-
 # Reference
+
+<br>
+
+## network-diagram
+
+https://github.com/takamitsu-iida/network-diagram
+
+<br>
+
+## network-diagram2
+
+https://github.com/takamitsu-iida/network-diagram2
+
+<br>
 
 ## cytoscape.js
 
