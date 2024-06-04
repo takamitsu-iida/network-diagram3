@@ -1,6 +1,6 @@
 # Network Diagram by cytoscape.js
 
-RFC7938に記載の図（こんな感じの絵↓）をJavaScriptで描画します。
+Draw a figure in [RFC7938](https://datatracker.ietf.org/doc/html/rfc7938) (like this) using cytoscape.js
 
 ```text
                                       Tier 1
