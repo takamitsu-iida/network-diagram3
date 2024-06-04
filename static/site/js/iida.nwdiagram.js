@@ -21,7 +21,6 @@
     let COLOR_REDUNDANT_0_PORT = "#009933"; // green
     let COLOR_REDUNDANT_1_PORT = "#FF9933"; // orange
 
-
     let cy_styles = [
 
       {
@@ -263,7 +262,9 @@
               break;
           }
 
-          console.log(JSON.stringify(clos_clusters, null, 2));
+          let text_data = JSON.stringify(clos_clusters, null, 2)
+          // console.log(text_data);
+          document.getElementById('idTextArea').textContent = text_data;
 
           cy.elements().remove();
           cy.add(iida.appdata.get_elements(clos_clusters));
@@ -271,7 +272,8 @@
       });
     });
 
-
+    // initial data
+    document.getElementById('idTextArea').textContent = JSON.stringify(iida.appdata.clos_clusters_1, null, 2);
 
   };
   //
