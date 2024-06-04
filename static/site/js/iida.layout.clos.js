@@ -19,8 +19,8 @@
     let eles = this.eles;
 
     let tier1_start_x = options.tier1_start_x || 80;
-    let tier2_start_x = options.tier2_start_x || 240;
-    let tier3_start_x = options.tier3_start_x || 320;
+    let tier2_start_x = options.tier2_start_x || 340;
+    let tier3_start_x = options.tier3_start_x || 460;
     let tier1_tier2_min_gap = options.tier1_tier2_min_gap || 50;
     let cluster_gap = options.cluster_gap || 360;
 

@@ -177,8 +177,8 @@
 
     let LAYOUT_OPTIONS = {
       tier1_start_x: 80,
-      tier2_start_x: 240,
-      tier3_start_x: 320,
+      tier2_start_x: 340,
+      tier3_start_x: 460,
       tier1_tier2_min_gap: 50,
       cluster_gap: 360
     }
