@@ -17,7 +17,6 @@ body {
   grid-template-columns: 240px 1fr;
 }
 
-
 /*
 1-2-3
  ■ ■
@@ -56,8 +55,8 @@ body {
   background-color: #fffafa; /* snow */
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 8px - 30px - 8px - 8px - 2px); /* body-top-margin:8px - top-panel-height:30px - row-gap:8px - body-bottom-margi\
-n:8px - border:1px+1px */
+   /* body-top-margin:8px - top-panel-height:30px - row-gap:8px - body-bottom-margin:8px - border:1px+1px */
+  height: calc(100vh - 8px - 30px - 8px - 8px - 2px);
   /* border: 1.0px solid #aaa; */
 }
 
@@ -68,14 +67,14 @@ n:8px - border:1px+1px */
  □ ■
 3----
  */
- .right_panel {
+.right_panel {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
   position: relative;
-  height: calc(100vh - 8px - 30px - 8px - 8px - 2px); /* body-top-margin:8px - top-panel-height:30px - row-gap:8px - body-bottom-margi\
-n:8px - border:1px+1px */
+  /* body-top-margin:8px - top-panel-height:30px - row-gap:8px - body-bottom-margin:8px - border:1px+1px */
+  height: calc(100vh - 8px - 30px - 8px - 8px - 2px);
   overflow: hidden;
-  border: 1.0px solid #aaa;
+  border: 1px solid #aaa;
 }
 
 .control_span {
@@ -113,11 +112,8 @@ n:8px - border:1px+1px */
   background-color: #e9e9e9;
 }
 
-
-textarea {
-  resize: none;
+#idTextArea {
   width: 95%;
   height: 300px;
-  max-height: 300px;
-
+  resize: none;
 }

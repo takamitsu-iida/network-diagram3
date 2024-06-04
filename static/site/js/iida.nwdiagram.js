@@ -4,7 +4,7 @@
 
   iida.nwdiagram = function () {
 
-    if (! document.getElementById('cy')) {
+    if (!document.getElementById('cy')) {
       return;
     }
 
@@ -18,7 +18,7 @@
     let COLOR_TIER_1_REDUNDANT_0_ROUTER = "#00CC00"; // green
     let COLOR_TIER_1_REDUNDANT_1_ROUTER = "#FFCC00"; // orange
 
-    let COLOR_TIER_2_ROUTER =  "#f0f0f0";  // lightgray
+    let COLOR_TIER_2_ROUTER = "#f0f0f0";  // lightgray
     let COLOR_TIER_2_REDUNDANT_0_ROUTER = "#00CC00"; // green
     let COLOR_TIER_2_REDUNDANT_1_ROUTER = "#FFCC00"; // orange
 
@@ -252,41 +252,41 @@
       let tag = document.getElementById(id);
       if (!tag) { return; }
       tag.addEventListener('click', function (evt) {
-          evt.stopPropagation();
-          evt.preventDefault();
-          document.getElementsByName('dataChangeMenu').forEach(element => {
-            element.classList.remove('active');
-          });
-          evt.target.classList.add('active');
+        evt.stopPropagation();
+        evt.preventDefault();
+        document.getElementsByName('dataChangeMenu').forEach(element => {
+          element.classList.remove('active');
+        });
+        evt.target.classList.add('active');
 
-          let clos_clusters;
-          switch (id) {
-            case 'idData1':
-              clos_clusters = iida.appdata.clos_clusters_1;
-              break;
-            case 'idData2':
-              clos_clusters = iida.appdata.clos_clusters_2;
-              break;
-            case 'idData3':
-              clos_clusters = iida.appdata.clos_clusters_3;
-              break;
-          }
+        let clos_clusters;
+        switch (id) {
+          case 'idData1':
+            clos_clusters = iida.appdata.clos_clusters_1;
+            break;
+          case 'idData2':
+            clos_clusters = iida.appdata.clos_clusters_2;
+            break;
+          case 'idData3':
+            clos_clusters = iida.appdata.clos_clusters_3;
+            break;
+        }
 
-          let text_data = JSON.stringify(clos_clusters, null, 2)
-          // console.log(text_data);
-          document.getElementById('idTextArea').textContent = text_data;
+        let text_data = JSON.stringify(clos_clusters, null, 2)
+        // console.log(text_data);
+        document.getElementById('idTextArea').textContent = text_data;
 
-          // remove all elements
-          cy.elements().remove();
+        // remove all elements
+        cy.elements().remove();
 
-          // reset zoom etc
-          cy.reset();
+        // reset zoom etc
+        cy.reset();
 
-          // add new elements
-          cy.add(iida.appdata.get_elements(clos_clusters));
+        // add new elements
+        cy.add(iida.appdata.get_elements(clos_clusters));
 
-          // layout again
-          cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
+        // layout again
+        cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
       });
     });
 

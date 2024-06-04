@@ -46,8 +46,6 @@
     }
   ];
 
-
-
   let DEFAULT_NODE_WIDTH = 60;
   let DEFAULT_NODE_HEIGHT = 40;
   let DEFAULT_PORT_WIDTH = 10;
@@ -172,7 +170,7 @@
   }
 
 
-  function create_router (id) {
+  function create_router(id) {
 
     let _id = id;
     let _label = id;
@@ -482,7 +480,7 @@
       router.height(DEFAULT_NODE_HEIGHT);
       router.classes('tier1')
       router.tier(1);
-      router.redundant_id(Math.floor(i/2));
+      router.redundant_id(Math.floor(i / 2));
 
       routers.push(router);
     }
@@ -509,7 +507,7 @@
       router.classes('tier2');
       router.cluster_id(cluster_id);
       router.tier(2);
-      router.redundant_id(Math.floor(i%2));
+      router.redundant_id(Math.floor(i % 2));
       router.parent('cluster_' + cluster_id);
 
       routers.push(router);

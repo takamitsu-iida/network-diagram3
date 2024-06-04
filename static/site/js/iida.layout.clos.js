@@ -93,7 +93,7 @@
       if (tier === 1) {
         let tier1_routers = cy.nodes('.router').filter('[tier=1]');
         let tier1_bb = tier1_routers.boundingBox();
-        let not_tier1_routers = cy.nodes('.router').filter(function(node) {
+        let not_tier1_routers = cy.nodes('.router').filter(function (node) {
           return node.data('tier') === 2 || node.data('tier') === 3;
         });
         let not_tier1_bb = not_tier1_routers.boundingBox();
