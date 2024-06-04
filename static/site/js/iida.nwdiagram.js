@@ -1,8 +1,15 @@
-/* global iida, cytoscape */
+/* global iida, cytoscape, document */
 
 (function () {
 
   iida.nwdiagram = function () {
+
+    if (! document.getElementById('cy')) {
+      return;
+    }
+
+    // show initial data on textarea
+    document.getElementById('idTextArea').textContent = JSON.stringify(iida.appdata.clos_clusters_1, null, 2);
 
     let COLOR_REDUNDANT_0_EDGE = "#009933"; // green
     let COLOR_REDUNDANT_1_EDGE = "#FF9933"; // orange
@@ -183,10 +190,12 @@
       cluster_gap: 360
     }
 
+    cytoscape.warnings(false);
     let cy = window.cy = cytoscape({
       container: document.getElementById('cy'),
       minZoom: 0.5,
       maxZoom: 3,
+      wheelSensitivity: 0.2,
       boxSelectionEnabled: false,
       autounselectify: true,
       // layout: { 'name': "preset" },
@@ -197,6 +206,7 @@
       style: cy_styles,
       elements: iida.appdata.get_elements()
     });
+    cytoscape.warnings(true);
 
     // add the panzoom control with default parameter
     // https://github.com/cytoscape/cytoscape.js-panzoom
@@ -266,14 +276,19 @@
           // console.log(text_data);
           document.getElementById('idTextArea').textContent = text_data;
 
+          // remove all elements
           cy.elements().remove();
+
+          // reset zoom etc
+          cy.reset();
+
+          // add new elements
           cy.add(iida.appdata.get_elements(clos_clusters));
+
+          // layout again
           cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
       });
     });
-
-    // initial data
-    document.getElementById('idTextArea').textContent = JSON.stringify(iida.appdata.clos_clusters_1, null, 2);
 
   };
   //
