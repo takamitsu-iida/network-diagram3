@@ -1,6 +1,26 @@
+/* global iida */
+
 (function () {
 
   iida.nwdiagram = function () {
+
+    let COLOR_REDUNDANT_0_EDGE = "#009933"; // green
+    let COLOR_REDUNDANT_1_EDGE = "#FF9933"; // orange
+
+    let COLOR_TIER_1_ROUTER = "#f0f0f0";  // lightgray
+    let COLOR_TIER_1_REDUNDANT_0_ROUTER = "#00CC00"; // green
+    let COLOR_TIER_1_REDUNDANT_1_ROUTER = "#FFCC00"; // orange
+
+    let COLOR_TIER_2_ROUTER =  "#f0f0f0";  // lightgray
+    let COLOR_TIER_2_REDUNDANT_0_ROUTER = "#00CC00"; // green
+    let COLOR_TIER_2_REDUNDANT_1_ROUTER = "#FFCC00"; // orange
+
+    let COLOR_TIER_3_ROUTER = "#f0f0f0";  // lightgray
+
+    let COLOR_PORT_COLOR = "#f0f0f0";  // lightgray
+    let COLOR_REDUNDANT_0_PORT = "#009933"; // green
+    let COLOR_REDUNDANT_1_PORT = "#FF9933"; // orange
+
 
     let cy_styles = [
 
@@ -14,46 +34,44 @@
       {
         selector: "edge",
         style: {
-          'width': 1,
-          // 'curve-style': "bezier",  // "taxi" "bezier" "segments",
-          'curve-style': "straight",
+          'width': 1.6,
+          'curve-style': "straight", // "bezier", "taxi" "bezier" "segments",
           'line-color': "#a9a9a9",  // darkgray
           // 'target-arrow-color': "#a9a9a9",  // darkgray
           // 'source-arrow-color': "#a9a9a9",  // darkgray
           // 'target-arrow-shape': "circle",
           // 'source-arrow-shape': "circle",
+          // 'text-wrap': "wrap",  // wrap is needed to work '\n'
           // 'label': "data(label)",
-          'text-wrap': "wrap",  // wrap is needed to work '\n'
-          'label': edge => edge.data('label') ? `\u2060${edge.data('label')}\n\n\u2060` : '',
-          'font-size': "10px",
-          'edge-text-rotation': "autorotate",
+          // 'label': edge => edge.data('label') ? `\u2060${edge.data('label')}\n\n\u2060` : '',
+          // 'font-size': "10px",
+          // 'edge-text-rotation': "autorotate"
           // 'source-text-offset': 10,
           // 'target-text-offset': 10,
+          'z-index': 0
         }
       },
 
       {
         selector: "edge.tier2-tier3",
         style: {
-          'width': 1,
+          'width': 1.0,
           'curve-style': "taxi",
           'taxi-direction': 'horizontal',
-          'taxi-turn': Number.MAX_SAFE_INTEGER,
+          'taxi-turn': Number.MAX_SAFE_INTEGER
         }
       },
 
       {
         selector: "edge[redundant_id = 0]",
         style: {
-          'width': 1,
-          'line-color': "#0000ff",  // blue
+          'line-color': COLOR_REDUNDANT_0_EDGE
         }
       },
       {
         selector: "edge[redundant_id = 1]",
         style: {
-          'width': 1,
-          'line-color': "#ff0000",  // red
+          'line-color': COLOR_REDUNDANT_1_EDGE
         }
       },
 
@@ -71,39 +89,64 @@
           'text-wrap': "wrap",
           'text-valign': "center",
           'text-halign': "center",
-          'opacity': 1,
+          'opacity': 1.0,
           'border-opacity': 1.0,
+          'z-index': 1
         }
       },
 
       {
         selector: ".router.tier1",
         style: {
-          'background-color': "#f0f0f0",
+          'background-color': COLOR_TIER_1_ROUTER
+        }
+      },
+      {
+        selector: ".router.tier1[redundant_id = 0]",
+        style: {
+          'background-color': COLOR_TIER_1_REDUNDANT_0_ROUTER
+        }
+      },
+      {
+        selector: ".router.tier1[redundant_id = 1]",
+        style: {
+          'background-color': COLOR_TIER_1_REDUNDANT_1_ROUTER
         }
       },
 
       {
         selector: ".router.tier2",
         style: {
-          'background-color': "#00f0f0",
+          'background-color': COLOR_TIER_2_ROUTER
+        }
+      },
+      {
+        selector: ".router.tier2[redundant_id = 0]",
+        style: {
+          'background-color': COLOR_TIER_2_REDUNDANT_0_ROUTER
+        }
+      },
+      {
+        selector: ".router.tier2[redundant_id = 1]",
+        style: {
+          'background-color': COLOR_TIER_2_REDUNDANT_1_ROUTER
         }
       },
 
       {
         selector: ".router.tier3",
         style: {
-          'background-color': "#f0f000",
+          'background-color': COLOR_TIER_3_ROUTER
         }
       },
 
       {
         selector: ".port",
         style: {
-          'border-color': "#f0f0f0",
-          'border-width': 0.5,
+          'border-color': "#000",
+          'border-width': 0.4,
           'shape': "rectangle",
-          'background-color': "#87ceeb",  // skyblue
+          'background-color': COLOR_PORT_COLOR,
           'label': "data(label)",
           'width': "data(width)",
           'height': "data(height)",
@@ -111,22 +154,23 @@
           'text-wrap': "wrap",
           'text-valign': "center",
           'text-halign': "center",
-          'opacity': 1,
-          'border-opacity': 1.0
+          'opacity': 1.0,
+          'border-opacity': 1.0,
+          'z-index': 0
         }
       },
 
       {
         selector: '.port[redundant_id = 0]',
         style: {
-          'background-color': "#0000ff",  // blue
+          'background-color': COLOR_REDUNDANT_0_PORT
         }
       },
 
       {
         selector: '.port[redundant_id = 1]',
         style: {
-          'background-color': "#ff0000",  // red
+          'background-color': COLOR_REDUNDANT_1_PORT
         }
       }
 
@@ -157,17 +201,11 @@
     // https://github.com/cytoscape/cytoscape.js-panzoom
     cy.panzoom({});
 
-    // the button to revert to initial position
-    let initial_position = document.getElementById('idInitialPosition');
-    if (initial_position) {
-      initial_position.addEventListener('click', function (evt) {
-        animate_to_initial_position();
-      });
+    function get_initial_position(node) {
+      return node.data('initial_position');
     };
 
-    let get_initial_position = function (node) { return node.data('initial_position'); };
-
-    let animate_to_initial_position = function () {
+    function animate_to_initial_position() {
       Promise.all(cy.nodes('.router').map(node => {
         return node.animation({
           position: get_initial_position(node),
@@ -175,6 +213,24 @@
           easing: "ease"
         }).play().promise();
       }));
+    };
+
+    // the button to revert to initial position
+    let button_initial_position = document.getElementById('idInitialPosition');
+    if (button_initial_position) {
+      button_initial_position.addEventListener('click', function (evt) {
+        animate_to_initial_position();
+      });
+    };
+
+    // the button to dump elements JSON data to console
+    let button_to_json = document.getElementById('idToJson');
+    if (button_to_json) {
+      button_to_json.addEventListener('click', function (evt) {
+        let elements_json = cy.elements().jsons();
+        let elements_json_str = JSON.stringify(elements_json, null, 2);
+        console.log(elements_json_str);
+      });
     };
 
   };

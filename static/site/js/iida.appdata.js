@@ -160,6 +160,9 @@
     let _uplink_port_ids = [];
     let _downlink_port_ids = [];
 
+    let _ports = [];
+    let _edges = [];
+
     // clos parameters
     let _tier = 1; // 1: tier1, 2: tier2, 3: tier3
     let _redundant_id = -1;
@@ -288,8 +291,15 @@
       }
     }
 
+    exports.get_ports = function () {
+      return _ports;
+    }
+
+    exports.get_edges = function () {
+      return _edges;
+    }
+
     exports.create_ports = function () {
-      let ports = [];
       _uplink_port_ids.forEach((port_id, index) => {
         let port = create_port(port_id);
         port.router_id(_id);
@@ -302,8 +312,16 @@
           port.offset_x(-1 * _width / 2 + DEFAULT_PORT_WIDTH * (index + 1));
           port.offset_y(-1 * _height / 2 - DEFAULT_PORT_HEIGHT / 2);
         }
-        ports.push(port);
+        _ports.push(port);
+
+        let edge = create_edge(_id + '-' + port_id);
+        edge.source(_id);
+        edge.target(port_id);
+        edge.classes('router-port');
+        _edges.push(edge);
+
       });
+
       _downlink_port_ids.forEach((port_id, index) => {
         let port = create_port(port_id);
         port.router_id(_id);
@@ -316,11 +334,17 @@
           port.offset_x(_width / 2 + DEFAULT_PORT_WIDTH / 2);
           port.offset_y(-1 * _height / 2 + DEFAULT_PORT_HEIGHT * (index + 1));
         }
-        ports.push(port);
-      });
-      return ports;
-    }
+        _ports.push(port);
 
+        let edge = create_edge(_id + '-' + port_id);
+        edge.source(_id);
+        edge.target(port_id);
+        edge.classes('router-port');
+        _edges.push(edge);
+
+      });
+      return _ports;
+    }
 
     return exports;
   }
@@ -607,23 +631,32 @@
       });
 
       tier2_routers.forEach(r => {
-        let ports = r.create_ports();
-        ports.forEach(p => {
+        r.create_ports();
+        r.get_ports().forEach(p => {
           eles.push(p.get_cy_element());
+        });
+        r.get_edges().forEach(e => {
+          eles.push(e.get_cy_element());
         });
       });
 
       tier3_routers.forEach(r => {
-        let ports = r.create_ports();
-        ports.forEach(p => {
+        r.create_ports();
+        r.get_ports().forEach(p => {
           eles.push(p.get_cy_element());
+        });
+        r.get_edges().forEach(e => {
+          eles.push(e.get_cy_element());
         });
       });
 
       tier1_routers.forEach(r => {
-        let ports = r.create_ports();
-        ports.forEach(p => {
+        r.create_ports();
+        r.get_ports().forEach(p => {
           eles.push(p.get_cy_element());
+        });
+        r.get_edges().forEach(e => {
+          eles.push(e.get_cy_element());
         });
       });
 

@@ -1,3 +1,5 @@
+/* global cytoscape */
+
 // 5 stage clos layout
 (function () {
 
@@ -10,7 +12,6 @@
     this.cy = arguments.cy;
     this.eles = arguments.eles;
   }
-
 
   five_stage_clos_layout.prototype.run = function () {
     let options = this.options;
@@ -203,11 +204,9 @@
     return this;
   }
 
-
   five_stage_clos_layout.prototype.stop = function () {
     return this;
   }
-
 
   function get_cluster_ids(nodes) {
     let tier2_routers = nodes.filter('[tier=2]');
@@ -221,8 +220,6 @@
 
     return cluster_ids;
   }
-
-
 
   // register layout extension to cytoscape
   cytoscape('layout', 'FiveStageClos', five_stage_clos_layout);
