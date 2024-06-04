@@ -1,4 +1,4 @@
-/* global iida */
+/* global iida, cytoscape */
 
 (function () {
 
