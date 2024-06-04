@@ -1,6 +1,6 @@
 # Network Diagram by cytoscape.js
 
-RFC7938に記載の図をJavaScriptで描画します。
+RFC7938に記載の図（こんな感じの絵↓）をJavaScriptで描画します。
 
 ```text
                                       Tier 1
