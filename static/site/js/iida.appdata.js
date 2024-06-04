@@ -2,16 +2,24 @@
 
 (function () {
 
-  // calculated elements for cytoscape.js
-  iida.appdata.elements = [];
-
   // public function to get cytoscape.js elements
-  iida.appdata.get_elements = function () {
-    return iida.appdata.elements;
+  iida.appdata.get_elements = function (clos_clusters) {
+    if (!clos_clusters) {
+      clos_clusters = iida.appdata.clos_clusters_1;
+    }
+    return create_elements(clos_clusters);
   };
 
-  // public parameters for clos network
-  iida.appdata.clos_clusters = [
+  // example 1
+  iida.appdata.clos_clusters_1 = [
+    {
+      cluster_id: 1,
+      num_tier3: 5
+    }
+  ];
+
+  // example 2
+  iida.appdata.clos_clusters_2 = [
     {
       cluster_id: 1,
       num_tier3: 5
@@ -577,7 +585,7 @@
 
 
   // create cytoscape.js elements
-  function create_elements() {
+  function create_elements(clos_clusters) {
 
     // array to store cytoscape.js elements
     let eles = []
@@ -591,7 +599,6 @@
     });
 
     // create clusters
-    let clos_clusters = iida.appdata.clos_clusters || [];
     clos_clusters.forEach((cluster, cluster_index) => {
       let cluster_id = cluster.cluster_id || cluster_index;
 
@@ -664,7 +671,5 @@
 
     return eles;
   };
-
-  iida.appdata.elements = create_elements();
 
 })();

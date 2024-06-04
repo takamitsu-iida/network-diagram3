@@ -176,6 +176,14 @@
 
     ]
 
+    let LAYOUT_OPTIONS = {
+      tier1_start_x: 80,
+      tier2_start_x: 240,
+      tier3_start_x: 320,
+      tier1_tier2_min_gap: 50,
+      cluster_gap: 360
+    }
+
     let cy = window.cy = cytoscape({
       container: document.getElementById('cy'),
       minZoom: 0.5,
@@ -185,13 +193,7 @@
       // layout: { 'name': "preset" },
       layout: {
         name: "FiveStageClos", // see iida.layout.clos.js
-        options: {
-          tier1_start_x: 80,
-          tier2_start_x: 240,
-          tier3_start_x: 320,
-          tier1_tier2_min_gap: 50,
-          cluster_gap: 360
-        }
+        options: LAYOUT_OPTIONS
       },
       style: cy_styles,
       elements: iida.appdata.get_elements()
@@ -219,6 +221,8 @@
     let button_initial_position = document.getElementById('idInitialPosition');
     if (button_initial_position) {
       button_initial_position.addEventListener('click', function (evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
         animate_to_initial_position();
       });
     };
@@ -227,11 +231,39 @@
     let button_to_json = document.getElementById('idToJson');
     if (button_to_json) {
       button_to_json.addEventListener('click', function (evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
         let elements_json = cy.elements().jsons();
         let elements_json_str = JSON.stringify(elements_json, null, 2);
         console.log(elements_json_str);
       });
     };
+
+
+    function data_change_handler(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+      let target = evt.target;
+      let clos_clusters = iida.appdata.clos_clusters_1;
+      if (target.dataset.example === "ex2") {
+        clos_clusters = iida.appdata.clos_clusters_2;
+      }
+
+      cy.elements().remove();
+      cy.add(iida.appdata.get_elements(clos_clusters));
+      cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
+
+    }
+
+    let button_data1 = document.getElementById('idData1');
+    if (button_data1) {
+      button_data1.addEventListener('click', data_change_handler);
+    }
+
+    let button_data2 = document.getElementById('idData2');
+    if (button_data2) {
+      button_data2.addEventListener('click', data_change_handler);
+    }
 
   };
   //
