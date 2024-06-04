@@ -591,7 +591,10 @@
     let eles = []
 
     // create tier1 routers
-    let tier1_routers = create_tier1_routers();
+    let tier1_routers = [];
+    if (clos_clusters.length > 1) {
+      tier1_routers = create_tier1_routers();
+    }
 
     // store cytoscape.js elements
     tier1_routers.forEach(r => {
