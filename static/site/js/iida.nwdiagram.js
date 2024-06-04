@@ -239,39 +239,39 @@
       });
     };
 
+    ['idData1', 'idData2', 'idData3'].forEach(id => {
+      let tag = document.getElementById(id);
+      if (!tag) { return; }
+      tag.addEventListener('click', function (evt) {
+          evt.stopPropagation();
+          evt.preventDefault();
+          document.getElementsByName('dataChangeMenu').forEach(element => {
+            element.classList.remove('active');
+          });
+          evt.target.classList.add('active');
 
-    function data_change_handler(evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      let target = evt.target;
-      let clos_clusters = iida.appdata.clos_clusters_1;
-      if (target.dataset.example === "ex2") {
-        clos_clusters = iida.appdata.clos_clusters_2;
-      }
-      if (target.dataset.example === "ex3") {
-        clos_clusters = iida.appdata.clos_clusters_3;
-      }
+          let clos_clusters;
+          switch (id) {
+            case 'idData1':
+              clos_clusters = iida.appdata.clos_clusters_1;
+              break;
+            case 'idData2':
+              clos_clusters = iida.appdata.clos_clusters_2;
+              break;
+            case 'idData3':
+              clos_clusters = iida.appdata.clos_clusters_3;
+              break;
+          }
 
-      cy.elements().remove();
-      cy.add(iida.appdata.get_elements(clos_clusters));
-      cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
+          console.log(JSON.stringify(clos_clusters, null, 2));
 
-    }
+          cy.elements().remove();
+          cy.add(iida.appdata.get_elements(clos_clusters));
+          cy.layout({ name: "FiveStageClos", options: LAYOUT_OPTIONS }).run();
+      });
+    });
 
-    let button_data1 = document.getElementById('idData1');
-    if (button_data1) {
-      button_data1.addEventListener('click', data_change_handler);
-    }
 
-    let button_data2 = document.getElementById('idData2');
-    if (button_data2) {
-      button_data2.addEventListener('click', data_change_handler);
-    }
-
-    let button_data3 = document.getElementById('idData3');
-    if (button_data3) {
-      button_data3.addEventListener('click', data_change_handler);
-    }
 
   };
   //

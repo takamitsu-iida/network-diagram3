@@ -41,12 +41,22 @@
 <body>
 
   <div class="wrapper">
+
+    <div class="header_panel">
+      <span class="control_span">
+        [DATA]
+        <a id="idData1" name="dataChangeMenu" class="active">Data 1</a>
+        <a id="idData2" name="dataChangeMenu">Data 2</a>
+        <a id="idData3" name="dataChangeMenu">Data 3</a>
+      </span>
+      <span style="float: right">
+        <a href="https://github.com/takamitsu-iida/network-diagram3" target="_blank" rel="noopener noreferrer">source code</a> (github)
+      </span>
+    </div>
+
     <div class="left_panel">
       <p><input id="idInitialPosition" , type="button" value="Initial Position"></p>
-      <p><input id="idToJson" , type="button" value="JSON"></p>
-      <p><input id="idData1" , type="button" value="Data 1" data-example="ex1"></p>
-      <p><input id="idData2" , type="button" value="Data 2" data-example="ex2"></p>
-      <p><input id="idData3" , type="button" value="Data 3" data-example="ex3"></p>
+      <p>dump to console<br><input id="idToJson" , type="button" value="JSON"></p>
     </div>
 
     <div class="right_panel">
