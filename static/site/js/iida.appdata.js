@@ -30,6 +30,24 @@
     }
   ];
 
+  // example 3
+  iida.appdata.clos_clusters_3 = [
+    {
+      cluster_id: 1,
+      num_tier3: 5
+    },
+    {
+      cluster_id: 2,
+      num_tier3: 5
+    },
+    {
+      cluster_id: 3,
+      num_tier3: 5
+    }
+  ];
+
+
+
   let DEFAULT_NODE_WIDTH = 60;
   let DEFAULT_NODE_HEIGHT = 40;
   let DEFAULT_PORT_WIDTH = 10;

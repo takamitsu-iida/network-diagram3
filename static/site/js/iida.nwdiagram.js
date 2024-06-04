@@ -248,6 +248,9 @@
       if (target.dataset.example === "ex2") {
         clos_clusters = iida.appdata.clos_clusters_2;
       }
+      if (target.dataset.example === "ex3") {
+        clos_clusters = iida.appdata.clos_clusters_3;
+      }
 
       cy.elements().remove();
       cy.add(iida.appdata.get_elements(clos_clusters));
@@ -263,6 +266,11 @@
     let button_data2 = document.getElementById('idData2');
     if (button_data2) {
       button_data2.addEventListener('click', data_change_handler);
+    }
+
+    let button_data3 = document.getElementById('idData3');
+    if (button_data3) {
+      button_data3.addEventListener('click', data_change_handler);
     }
 
   };
