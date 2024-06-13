@@ -38,7 +38,20 @@
       },
 
       {
-        selector: "edge",
+        selector: 'node',
+        style: {
+          'content': 'data(name)',
+          'text-opacity': 1.0,
+          'opacity': 1.0,
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'text-wrap': 'wrap',
+          'font-size': '10px',
+        }
+      },
+
+      {
+        selector: 'edge',
         style: {
           'width': 1.6,
           'curve-style': "straight", // "bezier", "taxi" "bezier" "segments",
@@ -91,10 +104,6 @@
           'label': "data(label)",
           'width': "data(width)",
           'height': "data(height)",
-          'font-size': "10px",
-          'text-wrap': "wrap",
-          'text-valign': "center",
-          'text-halign': "center",
           'opacity': 1.0,
           'border-opacity': 1.0,
           'z-index': 1
@@ -107,12 +116,14 @@
           'background-color': COLOR_TIER_1_ROUTER
         }
       },
+
       {
         selector: ".router.tier1[redundant_id = 0]",
         style: {
           'background-color': COLOR_TIER_1_REDUNDANT_0_ROUTER
         }
       },
+
       {
         selector: ".router.tier1[redundant_id = 1]",
         style: {
@@ -126,12 +137,14 @@
           'background-color': COLOR_TIER_2_ROUTER
         }
       },
+
       {
         selector: ".router.tier2[redundant_id = 0]",
         style: {
           'background-color': COLOR_TIER_2_REDUNDANT_0_ROUTER
         }
       },
+
       {
         selector: ".router.tier2[redundant_id = 1]",
         style: {
@@ -196,14 +209,20 @@
       minZoom: 0.5,
       maxZoom: 3,
       wheelSensitivity: 0.2,
+
       boxSelectionEnabled: false,
       autounselectify: true,
+      hideEdgesOnViewport: false, // hide edges during dragging ?
+      textureOnViewport: false,
+
       // layout: { 'name': "preset" },
       layout: {
         name: "FiveStageClos", // see iida.layout.clos.js
         options: LAYOUT_OPTIONS
       },
-      style: cy_styles,
+
+      style: cy_styles, // see above
+
       elements: iida.appdata.get_elements()
     });
     cytoscape.warnings(true);
